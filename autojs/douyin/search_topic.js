@@ -1,4 +1,4 @@
-
+// toast('Hello, Auto.js');
 let appName = '抖音短视频'
 
 function startAPP() {
@@ -102,6 +102,23 @@ function getFileContent(_file) {
     return contents;
 }
 
+
+function ding(msg){
+    url = 'https://oapi.dingtalk.com/robot/send?access_token=0d3989297bd04cf362dd75030ef8756815a66929c50cc7aa615cc64ad5f3da13'
+    msg = '### frida 真机异常监控 \n\n\r' + msg+'\n'
+    r = http.postJson(url, {
+        msgtype: "markdown",
+        markdown: {
+            "title": 'frida 真机群控监控',
+            "text": msg
+        },
+        at: {"isAtAll": false}
+    });
+    toastLog(r.body.string());
+
+}
+
+
 function run() {
     let _file = '/sdcard/word.txt'
     var fileContents = getFileContent(_file)
@@ -116,23 +133,5 @@ function run() {
     ding('关键词搜索完毕')
 
 }
-
-
-function ding(msg){
-    // 钉钉机器人
-    url = 'https://oapi.dingtalk.com/robot/send?access_token=0d3989197bd0454f362dd75030ef8756815a66929c50cc7aa615cc64ad5f3da13'
-    msg = '### frida 真机异常监控 \n\n\r' + msg+'\n'
-    r = http.postJson(url, {
-        msgtype: "markdown",
-        markdown: {
-            "title": 'frida 真机群控监控',
-            "text": msg
-        },
-        at: {"isAtAll": false}
-    });
-    toastLog(r.body.string());
-
-}
-
 
 run()
